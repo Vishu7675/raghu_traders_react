@@ -13,7 +13,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://raghutraders.shop/api/user/login", {
+      const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -23,16 +23,13 @@ const LoginPage = () => {
       console.log(data, "data");
       if (response.ok) {
         setMessage("Login successful!");
-        // Store the token (typically in localStorage or cookies)
-        localStorage.setItem("token", data.token);
+        
       } else {
         setMessage(data.message || "Login failed");
       }
     } catch (error) {
       setMessage("Error logging in");
     }
-    console.log("Logging in with:", formData);
-    // Call your login API here
   };
 
   return (

@@ -8,15 +8,33 @@ const RegisterPage = () => {
     phone: "",
     password: "",
   });
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("Registering:", formData);
-    // You can call your API here
+
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      console.log(data, "data");
+      if (response.ok) {
+        setMessage("Signup successful!");
+        
+      } else {
+        setMessage(data.message || "Signup failed");
+      }
+    } catch (error) {
+      setMessage("Error signing up");
+    }
   };
 
   return (
