@@ -15,7 +15,7 @@ const HomePage = () => {
           Supplying high-quality rice grains across regions with trust,
           tradition, and taste.
         </p>
-        <button className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+        <button className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition" onClick={()=>router.push('/products')}>
           View Products
         </button>
       </section>
