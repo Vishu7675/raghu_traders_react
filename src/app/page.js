@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-
+import { redirect } from "next/navigation"
 const HomePage = () => {
   const router = useRouter();
+  const token = localStorage.getItem("token");
+  if (!token) return redirect("/login"); 
   return (
     <div className="bg-white text-gray-800">
       {/* Hero Section */}

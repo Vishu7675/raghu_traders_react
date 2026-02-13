@@ -1,32 +1,35 @@
+'use client'
 import React from "react";
 import Link from "next/link";
-function Headers() {
+const Headers = () => {
+  const token = localStorage.getItem("token");
+
   return (
-    <div>
-      <div className="flex justify-between">
-        <h1 className="text-white">RT</h1>
-        <div className="flex gap-4">
-          <Link href={"/"} className="text-white">
-            Home
-          </Link>
-          <Link href={"/about"} className="text-white">
-            About us
-          </Link>
-          <Link href={"/products"} className="text-white">
-            Products
-          </Link>
-          <Link href={"/contact"} className="text-white">
-            Contact
-          </Link>
-        </div>
-        <div>
-          <Link href={"/login"} className="text-white">
-            Login
-          </Link>
-        </div>
+    <div className="flex justify-between px-6 py-4 bg-green-600 text-white items-center">
+      <h1>RT</h1>
+      <div className="flex gap-4">
+        <Link href={"/"}>Home</Link>
+        <Link href={"/about"}>About us</Link>
+        <Link href={"/products"}>Products</Link>
+        <Link href={"/contact"}>Contact</Link>
+      </div>
+      <div>
+        {!token ? (
+          <Link href={"/login"}>Login</Link>
+        ) : (
+          <div
+            onClick={() => {
+              localStorage.removeItem("token");
+              window.location.reload();
+            }}
+            className="cursor-pointer"
+          >
+            Logout
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default Headers;

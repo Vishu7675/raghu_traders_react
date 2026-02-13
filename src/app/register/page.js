@@ -1,14 +1,16 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from 'react-toastify';
 
 const RegisterPage = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     password: "",
   });
-  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,15 +27,15 @@ const RegisterPage = () => {
       });
 
       const data = await response.json();
-      console.log(data, "data");
       if (response.ok) {
-        setMessage("Signup successful!");
+        toast.success("Signup successful! Redirecting to login...");
+      router.push("/login")
         
       } else {
-        setMessage(data.message || "Signup failed");
+       toast.error(data.message || "Signup failed");
       }
     } catch (error) {
-      setMessage("Error signing up");
+      toast.error("An error occurred. Please try again.");
     }
   };
 
@@ -108,6 +110,7 @@ const RegisterPage = () => {
           </a>
         </p>
       </div>
+      <ToastContainer />
     </div>
   );
 };

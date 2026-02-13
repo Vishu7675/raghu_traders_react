@@ -13,6 +13,25 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+    if(!/^\S+@\S+\.\S+$/.test(email)){
+      return NextResponse.json(
+        { message: "Invalid email format" },
+        { status: 400 }
+      );
+    }
+    if(password.length<6){
+      return NextResponse.json(
+        { message: "Password must be at least 6 characters long" },
+        { status: 400 }
+      );
+    }
+    if(phone.length<10 ){
+      return NextResponse.json(
+        { message: "Phone number must be at least 10 digits long" },
+        { status: 400 }
+      );
+    }
+
     await connectDB();
 
     const existingUser = await User.findOne({ email });
