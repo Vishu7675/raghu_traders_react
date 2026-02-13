@@ -1,16 +1,10 @@
-'use client'
 import React from "react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { cookies } from "next/headers";
 import Image from "next/image";
-import {logo} from '../../public/images/logo.png'
+import logo from '../../public/images/logo.png'
 const Headers = () => {
-  const [token, setToken] = useState(null);
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    setToken(storedToken);
-  }, []);
+ const token = cookies().get("token");
 
   return (
     <>

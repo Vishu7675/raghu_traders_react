@@ -1,10 +1,8 @@
-"use client";
 import React from "react";
-import { useRouter } from "next/navigation";
 import { redirect } from "next/navigation"
+import { cookies } from "next/headers";
 const HomePage = () => {
-  const router = useRouter();
-  const token = localStorage.getItem("token");
+ const token = cookies().get("token");
   if (!token) return redirect("/login"); 
   return (
     <div className="bg-white text-gray-800">
@@ -70,7 +68,7 @@ const HomePage = () => {
           pricing and bulk orders.
         </p>
         <button
-          onClick={() => router.push("/contact")}
+          onClick={() =>redirect("/contact")}
           className="bg-white text-green-600 font-semibold px-6 py-2 rounded-lg hover:bg-gray-100 transition"
         >
           Contact Us
